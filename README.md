@@ -1,2 +1,8 @@
 # SimplelistKotling
-An example of Android Paging Requests
+An example of how to use:
+
+* Paging
+* Dagger
+* Clean structure
+* SOLID principles
+
