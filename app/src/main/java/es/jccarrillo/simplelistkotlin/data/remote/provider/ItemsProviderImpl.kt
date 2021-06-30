@@ -6,12 +6,12 @@ import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-class ItemsProviderImpl private constructor(val retrofitImpl: RetrofitImpl) : ItemsProvider {
+class ItemsProviderImpl constructor(private val retrofitImpl: RetrofitImpl) : ItemsProvider {
 
 
     override fun getItems(page: Int, limit: Int): ItemsResponse {
         try {
-            var response = retrofitImpl.getItems(page, limit).execute()
+            val response = retrofitImpl.getItems(page, limit).execute()
             if (response.isSuccessful)
                 response.body()?.let {
                     return it
@@ -26,7 +26,7 @@ class ItemsProviderImpl private constructor(val retrofitImpl: RetrofitImpl) : It
 
     companion object Factory {
         fun build(retrofit: Retrofit): ItemsProviderImpl {
-            return ItemsProviderImpl(retrofit.create(RetrofitImpl::class.java));
+            return ItemsProviderImpl(retrofit.create(RetrofitImpl::class.java))
         }
     }
 
