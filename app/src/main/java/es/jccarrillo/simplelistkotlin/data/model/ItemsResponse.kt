@@ -1,5 +1,3 @@
 package es.jccarrillo.simplelistkotlin.data.model
 
-class ItemsResponse : ArrayList<Item>() {
-
-}
+class ItemsResponse : ArrayList<Item>()

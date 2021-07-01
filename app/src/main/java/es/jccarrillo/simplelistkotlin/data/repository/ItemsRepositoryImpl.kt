@@ -4,8 +4,8 @@ import es.jccarrillo.simplelistkotlin.data.model.ItemsResponse
 
 
 class ItemsRepositoryImpl(
-    val local: es.jccarrillo.simplelistkotlin.data.local.provider.ItemsProvider,
-    val remote: es.jccarrillo.simplelistkotlin.data.remote.provider.ItemsProvider
+    private val local: es.jccarrillo.simplelistkotlin.data.local.provider.ItemsProvider,
+    private val remote: es.jccarrillo.simplelistkotlin.data.remote.provider.ItemsProvider
 ) : ItemsRepository {
 
     override fun getItems(page: Int, limit: Int): ItemsResponse {

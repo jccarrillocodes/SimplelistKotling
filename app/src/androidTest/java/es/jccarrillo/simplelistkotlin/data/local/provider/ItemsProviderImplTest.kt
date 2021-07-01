@@ -15,7 +15,7 @@ import org.junit.rules.TestRule
 @ExperimentalCoroutinesApi
 class ItemsProviderImplTest : TestCase() {
 
-    lateinit var itemsProvider: ItemsProvider
+    private lateinit var itemsProvider: ItemsProvider
 
     @get:Rule
     val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()

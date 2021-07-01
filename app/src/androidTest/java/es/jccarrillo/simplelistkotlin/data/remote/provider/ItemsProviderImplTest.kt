@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @RunWith(AndroidJUnit4::class)
 class ItemsProviderImplTest {
 
-    lateinit var provider: ItemsProvider
+    private lateinit var provider: ItemsProvider
 
     @Before
     fun prepare() {
