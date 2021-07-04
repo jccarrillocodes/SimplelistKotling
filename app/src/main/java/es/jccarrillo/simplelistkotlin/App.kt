@@ -8,10 +8,6 @@ import es.jccarrillo.simplelistkotlin.domain.ioc.DaggerAppComponent
 
 class App : MultiDexApplication() {
 
-    companion object {
-        lateinit var INSTANCE: App
-    }
-
     val appComponent: AppComponent by lazy {
         DaggerAppComponent.builder()
             .build()
@@ -20,6 +16,6 @@ class App : MultiDexApplication() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(base)
-        INSTANCE = this
     }
+
 }
