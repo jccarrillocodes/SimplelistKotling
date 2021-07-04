@@ -1,4 +1,4 @@
-package es.jccarrillo.simplelistkotlin.ui.viewmodels
+package es.jccarrillo.simplelistkotlin.ui.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
