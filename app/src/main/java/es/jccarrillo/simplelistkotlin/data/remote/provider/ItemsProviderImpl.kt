@@ -10,18 +10,14 @@ class ItemsProviderImpl constructor(private val retrofitImpl: RetrofitImpl) : It
 
 
     override fun getItems(page: Int, limit: Int): ItemsResponse {
-        try {
-            val response = retrofitImpl.getItems(page, limit).execute()
-            if (response.isSuccessful)
-                response.body()?.let {
-                    return it
-                }
 
-            throw Exception()
+        val response = retrofitImpl.getItems(page, limit).execute()
+        if (response.isSuccessful)
+            response.body()?.let {
+                return it
+            }
 
-        } catch (ex: Exception) {
-            return ItemsResponse()
-        }
+        throw Exception()
     }
 
     companion object Factory {

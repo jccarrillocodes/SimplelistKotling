@@ -1,9 +1,10 @@
 package es.jccarrillo.simplelistkotlin.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import dagger.android.support.DaggerAppCompatActivity
 import es.jccarrillo.simplelistkotlin.App
 import es.jccarrillo.simplelistkotlin.R
 import javax.inject.Inject
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         (application as App).appComponent.inject(this)
 
         viewModel = ViewModelProvider(this, providerFactory).get(MainViewModel::class.java)
-        viewModel.doSomething()
+        viewModel.items().observe(this, {
+            Log.d("MainActivity", "Hay " + it.size + " Total")
+        })
+
     }
 }
