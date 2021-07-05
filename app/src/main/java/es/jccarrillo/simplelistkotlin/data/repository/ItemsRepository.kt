@@ -6,6 +6,8 @@ interface ItemsRepository {
 
     fun getItems(page: Int, limit: Int): ItemsResponse
 
+    fun getRemoteItems(page: Int, limit: Int): ItemsResponse
+
     fun clearLocalItems()
 
 }

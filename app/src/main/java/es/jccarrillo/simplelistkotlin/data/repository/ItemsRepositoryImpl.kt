@@ -17,6 +17,8 @@ class ItemsRepositoryImpl(
         return response
     }
 
+    override fun getRemoteItems(page: Int, limit: Int): ItemsResponse = remote.getItems(page, limit)
+
     override fun clearLocalItems() {
         local.clearStorage()
     }

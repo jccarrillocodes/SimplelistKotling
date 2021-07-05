@@ -53,6 +53,19 @@ class MainViewModelTest {
     }
 
     @Test
+    fun testReloadItems() = runBlockingTest {
+        setUp()
+        val items10 = viewModel.items().getOrAwaitValue()
+        Assert.assertTrue("Items length ${items10.size}, should be 10", items10.size == 10)
+        viewModel.reload()
+        val itemsReloaded = viewModel.items().getOrAwaitValue(discardFirstData = true)
+        Assert.assertTrue(
+            "Items length ${itemsReloaded.size}, should be 10",
+            itemsReloaded.size == 10
+        )
+    }
+
+    @Test
     fun testState() = runBlockingTest {
         setUp()
         Assert.assertEquals(

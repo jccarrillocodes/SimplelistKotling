@@ -1,6 +1,5 @@
 package es.jccarrillo.simplelistkotlin.ui.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,8 +28,36 @@ class MainViewModel @Inject constructor(private val repository: ItemsRepository)
 
     fun state(): LiveData<State> = _state
 
+    fun reload() {
+        _state.postValue(State.LOADING)
+
+        viewModelScope.launch {
+            nextPage = 0
+            try {
+                val remoteItems = withContext(Dispatchers.IO) {
+                    repository.getRemoteItems(nextPage, limit)
+                }
+
+                _items.value?.clear()
+                _items.value?.addAll(remoteItems)
+                ++nextPage
+
+                repository.clearLocalItems()
+
+                _items.postValue(_items.value)
+
+                if (remoteItems.size > 0)
+                    _state.postValue(State.LOADED_MORE_DATA)
+                else
+                    _state.postValue(State.LOADED_NO_MORE_DATA)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _state.postValue(State.ERROR_LOADING)
+            }
+        }
+    }
+
     fun loadMoreItems() {
-        Log.d(MainViewModel::class.java.toString(), "Loading items")
         _state.postValue(State.LOADING)
 
         viewModelScope.launch {
@@ -41,8 +68,6 @@ class MainViewModel @Inject constructor(private val repository: ItemsRepository)
                 _items.value?.addAll(moreItems)
                 ++nextPage
                 _items.postValue(_items.value)
-
-                Log.d(MainViewModel::class.java.toString(), "I have the items ${moreItems.size}")
 
                 if (moreItems.size > 0)
                     _state.postValue(State.LOADED_MORE_DATA)

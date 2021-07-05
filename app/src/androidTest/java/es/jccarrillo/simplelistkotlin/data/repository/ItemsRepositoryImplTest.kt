@@ -91,4 +91,10 @@ class ItemsRepositoryImplTest : TestCase() {
 
         Assert.assertTrue(items2.size == 0)
     }
+
+    @Test
+    fun testGetRemoteItems() {
+        val items = itemsRepository.getRemoteItems(0, 10)
+        Assert.assertTrue(items.size == 10)
+    }
 }
