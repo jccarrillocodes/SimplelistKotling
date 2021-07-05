@@ -2,8 +2,8 @@ package es.jccarrillo.simplelistkotlin.ui.main
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import es.jccarrillo.simplelistkotlin.App
 import es.jccarrillo.simplelistkotlin.R
@@ -25,7 +25,11 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, providerFactory).get(MainViewModel::class.java)
         viewModel.items().observe(this, {
-            Log.d("MainActivity", "Hay " + it.size + " Total")
+            Toast.makeText(this, "Hay ${it.size} Total", Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.state().observe(this, {
+            Log.d("MainActivity", "Estado: $it")
         })
 
     }

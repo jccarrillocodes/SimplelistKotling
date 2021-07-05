@@ -1,11 +1,15 @@
 package es.jccarrillo.simplelistkotlin.ui.main
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import es.jccarrillo.simplelistkotlin.data.model.Item
 import es.jccarrillo.simplelistkotlin.data.repository.ItemsRepository
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(private val repository: ItemsRepository) : ViewModel() {
@@ -31,7 +35,9 @@ class MainViewModel @Inject constructor(private val repository: ItemsRepository)
 
         viewModelScope.launch {
             try {
-                val moreItems = repository.getItems(nextPage, limit)
+                val moreItems = withContext(Dispatchers.IO) {
+                    repository.getItems(nextPage, limit)
+                }
                 _items.value?.addAll(moreItems)
                 ++nextPage
                 _items.postValue(_items.value)
@@ -43,6 +49,7 @@ class MainViewModel @Inject constructor(private val repository: ItemsRepository)
                 else
                     _state.postValue(State.LOADED_NO_MORE_DATA)
             } catch (e: Exception) {
+                e.printStackTrace()
                 _state.postValue(State.ERROR_LOADING)
             }
         }

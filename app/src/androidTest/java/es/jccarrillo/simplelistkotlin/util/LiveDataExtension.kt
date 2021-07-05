@@ -73,7 +73,7 @@ fun <T> LiveData<T>.checkValues(
 
     if (!latch.await(time, timeUnit)) {
         this.removeObserver(observer)
-        throw TimeoutException("LiveData value was never set.")
+        throw TimeoutException("LiveData values did not match passed values")
     }
     this.removeObserver(observer)
 }
