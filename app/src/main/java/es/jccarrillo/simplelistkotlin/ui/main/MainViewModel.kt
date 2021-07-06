@@ -42,7 +42,9 @@ class MainViewModel @Inject constructor(private val repository: ItemsRepository)
                 _items.value?.addAll(remoteItems)
                 ++nextPage
 
-                repository.clearLocalItems()
+                withContext(Dispatchers.IO) {
+                    repository.clearLocalItems()
+                }
 
                 _items.postValue(_items.value)
 
@@ -78,6 +80,16 @@ class MainViewModel @Inject constructor(private val repository: ItemsRepository)
                 _state.postValue(State.ERROR_LOADING)
             }
         }
+    }
+
+    fun showedLastItem() {
+        if (_state.value == State.LOADED_MORE_DATA) {
+            loadMoreItems()
+        }
+    }
+
+    fun onItemClicked(item: Item) {
+        // TODO("Not yet implemented")
     }
 
     enum class State {

@@ -75,6 +75,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     kapt "androidx.room:room-compiler:$roomVersion"
 
     implementation 'com.google.dagger:dagger:2.35.1'

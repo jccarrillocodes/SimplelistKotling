@@ -86,10 +86,13 @@ class ItemsRepositoryImplTest : TestCase() {
         itemsRepository =
             ItemsRepositoryImpl(getLocalItemsProvider(), getWrongRemoteItemsProvider())
         itemsRepository.clearLocalItems()
+        try {
+            itemsRepository.getItems(0, 10)
+            Assert.fail("Should throw an exception")
+        } catch (e: Exception) {
 
-        val items2 = itemsRepository.getItems(0, 10)
+        }
 
-        Assert.assertTrue(items2.size == 0)
     }
 
     @Test
